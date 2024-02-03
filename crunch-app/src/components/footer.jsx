@@ -10,7 +10,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 
-//TODO
+//TODO :: Make a Design for footer component
 // export default function ResponsiveFooter() {
 //   return (
 //     <Box sx={{ flexGrow: 1 }}>
@@ -82,7 +82,7 @@ function Copyright() {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function ResponsiveFooter() {
+export default function Footer() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box

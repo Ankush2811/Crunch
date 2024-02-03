@@ -1,26 +1,9 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
-import StarsRoundedIcon from "@mui/icons-material/StarsRounded";
-import FiberManualRecordSharpIcon from "@mui/icons-material/FiberManualRecordSharp";
-import ActionAreaCard from "./card";
+import RestaurantCard from "./card";
 
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: "center",
-//   color: theme.palette.text.secondary,
-// }));
-
-export default function CardLayout() {
+export default function RestaurantCardLayout() {
   const restaurantList = {
     restaurants: [
       {
@@ -310,11 +293,11 @@ export default function CardLayout() {
       <Grid container spacing={1} justifyContent="center">
         {restaurantList?.restaurants.map((res) => (
           <Grid key={res?.info?.id} item xs={12} sm={6} md={4} lg={2}>
-            <ActionAreaCard resData={res} />
+            <RestaurantCard resData={res} />
           </Grid>
         ))}
         {/* <Grid item xs={12} sm={6} md={4} lg={2}>
-          <ActionAreaCard resData={restaurantList?.restaurants[1]?.info} />
+          <RestaurantCard resData={restaurantList?.restaurants[1]?.info} />
         </Grid>
         */}
       </Grid>

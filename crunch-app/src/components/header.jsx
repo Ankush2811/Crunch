@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
-export default function ResponsiveAppBar() {
+export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "white" }}>

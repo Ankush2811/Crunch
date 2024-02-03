@@ -4,11 +4,11 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import 'typeface-poppins';
+import "typeface-poppins";
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Poppins, sans-serif", // Replace 'YourChosenFont' with the desired font
+    fontFamily: "Poppins, sans-serif",
   },
 });
 

@@ -7,7 +7,7 @@ import { CardActionArea } from "@mui/material";
 import StarsRoundedIcon from "@mui/icons-material/StarsRounded";
 import FiberManualRecordSharpIcon from "@mui/icons-material/FiberManualRecordSharp";
 
-export default function ActionAreaCard(props) {
+export default function RestaurantCard(props) {
   const { resData } = props;
   //   const restaurantName = resData?.restaurants?.[0]?.info;
   return (
