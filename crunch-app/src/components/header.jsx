@@ -29,17 +29,32 @@ export default function ResponsiveAppBar() {
           </Box>
           <Box style={{ marginRight: "80px" }}>
             <Button
-              style={{ color: "#EE302A", fontWeight: "bold", marginRight: 6 }}
+              style={{
+                color: "#EE302A",
+                fontSize: "18px",
+                fontWeight: "bold",
+                marginRight: 6,
+              }}
             >
               Search
             </Button>
             <Button
-              style={{ color: "#EE302A", fontWeight: "bold", marginRight: 6 }}
+              style={{
+                color: "#EE302A",
+                fontSize: "18px",
+                fontWeight: "bold",
+                marginRight: 6,
+              }}
             >
               Offers
             </Button>
             <Button
-              style={{ color: "#EE302A", fontWeight: "bold", marginRight: 16 }}
+              style={{
+                color: "#EE302A",
+                fontSize: "18px",
+                fontWeight: "bold",
+                marginRight: 16,
+              }}
               endIcon={<AddShoppingCartIcon />}
             >
               Cart
@@ -49,7 +64,7 @@ export default function ResponsiveAppBar() {
             </IconButton> */}
             <Button
               variant="outlined"
-              style={{ color: "#EE302A", fontWeight: "bold" }}
+              style={{ color: "#EE302A",fontSize:"18px", fontWeight: "bold" }}
             >
               Login
             </Button>
