@@ -292,7 +292,7 @@ export default function RestaurantCardLayout() {
     <Box sx={{ flexGrow: 1, height: "100%" }}>
       <Grid container spacing={1} justifyContent="center">
         {restaurantList?.restaurants.map((res) => (
-          <Grid key={res?.info?.id} item xs={12} sm={6} md={4} lg={2}>
+          <Grid key={res?.info?.id} item xs={12} sm={6} md={4} lg={2.25}>
             <RestaurantCard resData={res} />
           </Grid>
         ))}

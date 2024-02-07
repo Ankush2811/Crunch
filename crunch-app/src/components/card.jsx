@@ -17,13 +17,13 @@ export default function RestaurantCard(props) {
         margin: 1,
         textDecoration: "none",
         height: "95%",
-        borderRadius: 6,
+        borderRadius: 4,
       }}
     >
       <CardActionArea>
         <CardMedia
           component="img"
-          height="200"
+          height="160"
           image={
             "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
             resData?.info?.cloudinaryImageId
@@ -41,31 +41,43 @@ export default function RestaurantCard(props) {
           </Typography> */}
         </CardMedia>
 
-        <CardContent sx={{ borderRadius: 6, textAlign: "left" }}>
+        <CardContent
+          sx={{
+            borderRadius: 4,
+            textAlign: "left",
+            height: "120px",
+            paddingTop: "4px",
+          }}
+        >
           <Typography
             gutterBottom
-            variant="h5"
             component="div"
-            style={{ fontWeight: "500" }}
+            style={{
+              fontWeight: "500",
+              fontSize: "18px",
+              marginBottom: "0px",
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+            }}
           >
             {resData?.info?.name}
           </Typography>
           <Typography
             gutterBottom
-            variant="h6"
             component="div"
-            style={{ fontWeight: "500" }}
+            style={{ fontWeight: "500", fontSize: "14px", marginTop: "2px" }}
           >
-            <StarsRoundedIcon style={{ color: "green" }} />{" "}
+            <StarsRoundedIcon style={{ color: "green", fontSize: "14px" }} />{" "}
             {resData?.info?.avgRating}{" "}
             <FiberManualRecordSharpIcon
               fontSize="small"
-              style={{ fontSize: "12px" }}
+              style={{ fontSize: "8px" }}
             />{" "}
             {resData?.info?.sla?.slaString}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {resData?.info?.cuisines?.join(", ")}
+            {resData?.info?.cuisines?.slice(0, 3).join(", ")}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {resData?.info?.areaName}

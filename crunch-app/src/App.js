@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {/* <CarouselComponent/> */}
+      {/* <CarouselComponent /> */}
       <h1>RESTAURANTS</h1>
       <RestaurantCardLayout />
       <Footer />

@@ -23,15 +23,15 @@ export default function Header() {
             <Avatar
               variant="square"
               alt="logo"
-              src={"/static/images/crunch-logo.jpg"}
-              sx={{ width: 100, height: 100, mr: 2 }}
+              src={"/static/images/crunch-logo-none.png"}
+              sx={{ width: 80, height: 80, mr: 2 }}
             />
           </Box>
           <Box style={{ marginRight: "80px" }}>
             <Button
               style={{
                 color: "#EE302A",
-                fontSize: "18px",
+                fontSize: "12px",
                 fontWeight: "bold",
                 marginRight: 6,
               }}
@@ -41,7 +41,7 @@ export default function Header() {
             <Button
               style={{
                 color: "#EE302A",
-                fontSize: "18px",
+                fontSize: "12px",
                 fontWeight: "bold",
                 marginRight: 6,
               }}
@@ -51,7 +51,7 @@ export default function Header() {
             <Button
               style={{
                 color: "#EE302A",
-                fontSize: "18px",
+                fontSize: "12px",
                 fontWeight: "bold",
                 marginRight: 16,
               }}
@@ -64,7 +64,7 @@ export default function Header() {
             </IconButton> */}
             <Button
               variant="outlined"
-              style={{ color: "#EE302A",fontSize:"18px", fontWeight: "bold" }}
+              style={{ color: "#EE302A",fontSize:"12px", fontWeight: "bold" }}
             >
               Login
             </Button>
