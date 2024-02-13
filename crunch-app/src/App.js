@@ -9,7 +9,6 @@ function App() {
     <div className="App">
       <Header />
       {/* <CarouselComponent /> */}
-      <h1>RESTAURANTS</h1>
       <RestaurantCardLayout />
       <Footer />
     </div>
