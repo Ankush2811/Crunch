@@ -96,7 +96,7 @@ export default function Header() {
               style={{ color: "#EE302A", fontSize: "12px", fontWeight: "bold" }}
             >
               <svg
-                class="_1GTCc"
+                className="_1GTCc"
                 viewBox="6 0 12 24"
                 height="17"
                 width="17"
