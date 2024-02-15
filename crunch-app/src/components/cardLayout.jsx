@@ -7,11 +7,14 @@ import RestaurantCard from "./card";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { ShimmerEffect } from "./shimmer";
+import { TextField } from "@mui/material";
 
 export default function RestaurantCardLayout() {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [listOfTopRestaurants, setListOfTopRestaurants] = useState(null);
   const [originalList, setOriginalList] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [filterSearch, setFilterSearch] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
@@ -32,6 +35,7 @@ export default function RestaurantCardLayout() {
         ?.restaurants || [];
     setOriginalList(allRes);
     setListOfRestaurants(allRes);
+    setFilterSearch(allRes);
     setLoading(false);
   };
 
@@ -85,6 +89,33 @@ export default function RestaurantCardLayout() {
           marginRight: "80px",
         }}
       />
+      <Box>
+        <TextField
+          id="standard-basic"
+          label="Standard"
+          variant="standard"
+          value={searchInput}
+          onChange={(e) => {
+            setSearchInput(e.target.value);
+          }}
+        />
+        <Button
+          variant="outlined"
+          onClick={() => {
+            const filterSearch = originalList?.filter((res) =>
+              res?.info?.name.toLowerCase().includes(searchInput)
+            );
+            setListOfRestaurants(filterSearch);
+          }}
+          style={{
+            marginLeft: "10px",
+            fontSize: "12px",
+            fontWeight: "bold",
+          }}
+        >
+          Search
+        </Button>
+      </Box>
       <Typography variant="h6">All Restaurants</Typography>
       <Button
         variant="outlined"
@@ -134,12 +165,12 @@ export default function RestaurantCardLayout() {
       </Button>
       {loading ? (
         <Grid container spacing={1} justifyContent="center">
-        {[...Array(15)].map((_, index) => (
-          <Grid key={index} item xs={12} sm={6} md={4} lg={2.25}>
-            <ShimmerEffect />
-          </Grid>
-        ))}
-      </Grid>
+          {[...Array(15)].map((_, index) => (
+            <Grid key={index} item xs={12} sm={6} md={4} lg={2.25}>
+              <ShimmerEffect />
+            </Grid>
+          ))}
+        </Grid>
       ) : (
         <Grid container spacing={1} justifyContent="center">
           {listOfRestaurants?.map((res) => (

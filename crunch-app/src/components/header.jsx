@@ -65,10 +65,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "white" }}>
@@ -108,10 +105,18 @@ export default function Header() {
                 <StyledInputBase
                   placeholder="SEARCH..."
                   inputProps={{ "aria-label": "search" }}
-                  // value={searchQuery}
-                  // onChange={handleSearchInputChange}
                 />
               </Search>
+              <Button
+                variant="outlined"
+                style={{
+                  marginLeft: "10px",
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                }}
+              >
+                Search
+              </Button>
             </Button>
             <Button
               style={{
