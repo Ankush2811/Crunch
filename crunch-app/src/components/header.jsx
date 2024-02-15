@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,8 +8,67 @@ import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Icon } from "@iconify/react";
+import { styled } from "@mui/material/styles";
+import InputBase from "@mui/material/InputBase";
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  color: "#EE302A",
+  backgroundColor: "white",
+  "&:hover": {
+    color: "#EE302A",
+  },
+  marginLeft: 0,
+  fontSize: "12px",
+  fontWeight: "bold",
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(1),
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+// TODO : Fix the fontWeight of Search.
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "#EE302A",
+  width: "100%",
+  fontSize: "12px",
+  fontWeight: "bold",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    fontWeight: "bold",
+    outline: "none",
+    [theme.breakpoints.up("sm")]: {
+      width: "6ch",
+      "&:focus": {
+        width: "15ch",
+      },
+    },
+  },
+  "& .MuiInputBase-input::placeholder": {
+    fontWeight: "bold",
+    color: "#EE302A", // Placeholder text color
+  },
+}));
 
 export default function Header() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "white" }}>
@@ -34,16 +94,24 @@ export default function Header() {
                 color: "#EE302A",
                 fontSize: "12px",
                 fontWeight: "bold",
-                marginRight: 6,
               }}
             >
-              <Icon
-                icon="iconamoon:search-light"
-                width="1.5em"
-                height="1.5em"
-                style={{ color: "#EE302A", marginRight: "5px" }}
-              />
-              Search
+              <Search>
+                <SearchIconWrapper>
+                  <Icon
+                    icon="iconamoon:search-light"
+                    width="1.5em"
+                    height="1.5em"
+                    style={{ color: "#EE302A", marginRight: "5px" }}
+                  />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="SEARCH..."
+                  inputProps={{ "aria-label": "search" }}
+                  // value={searchQuery}
+                  // onChange={handleSearchInputChange}
+                />
+              </Search>
             </Button>
             <Button
               style={{
