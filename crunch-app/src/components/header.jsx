@@ -9,6 +9,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Icon } from "@iconify/react";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+import { useState } from "react";
 
 // TODO - 1.Move Search Functionality from layout to here
 //        2.Make all buttons Functional
@@ -49,25 +50,25 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: `calc(1em + ${theme.spacing(2)})`,
     transition: theme.transitions.create("width"),
     fontWeight: "bold",
     outline: "none",
     [theme.breakpoints.up("sm")]: {
-      width: "6ch",
+      width: "8ch",
       "&:focus": {
-        width: "15ch",
+        width: "16ch",
       },
     },
   },
   "& .MuiInputBase-input::placeholder": {
     fontWeight: "bold",
-    color: "#EE302A", // Placeholder text color
+    color: "#EE302A",
   },
 }));
 
-export default function Header() {
-  
+export default function Header({ filteredList, setListOfRestaurants }) {
+  const [searchInput, setSearchInput] = useState("");
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "white" }}>
@@ -97,27 +98,42 @@ export default function Header() {
             >
               <Search>
                 <SearchIconWrapper>
-                  <Icon
+                  {/*TODO : Use this ,improve CSS here*/}
+                  {/* <Icon
                     icon="iconamoon:search-light"
                     width="1.5em"
                     height="1.5em"
                     style={{ color: "#EE302A", marginRight: "5px" }}
-                  />
+                  /> */}
                 </SearchIconWrapper>
                 <StyledInputBase
                   placeholder="SEARCH..."
                   inputProps={{ "aria-label": "search" }}
+                  value={searchInput}
+                  onChange={(e) => {
+                    setSearchInput(e.target.value);
+                  }}
                 />
               </Search>
               <Button
-                variant="outlined"
-                style={{
-                  marginLeft: "10px",
-                  fontSize: "12px",
-                  fontWeight: "bold",
+                style={{ marginRight: "-15px", marginLeft: "-20px" }}
+                onClick={() => {
+                  const filterSearch = filteredList?.filter((res) =>
+                    res?.info?.name.toLowerCase().includes(searchInput)
+                  );
+                  setListOfRestaurants(filterSearch);
+                }}
+                onBlur={() => {
+                  setSearchInput("");
+                  setListOfRestaurants(filteredList);
                 }}
               >
-                Search
+                <Icon
+                  icon="iconamoon:search-light"
+                  width="1.5em"
+                  height="1.5em"
+                  style={{ color: "#EE302A" }}
+                />
               </Button>
             </Button>
             <Button

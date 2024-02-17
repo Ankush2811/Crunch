@@ -7,28 +7,26 @@ import RestaurantCard from "./card";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { ShimmerEffect } from "./shimmer";
-import { TextField } from "@mui/material";
+import Header from "./header";
 
 // TODO : 1. Carousel in TOP Restaurants
-//        2. Make UI better
+//        2. Make UI better - 4 cards in a row
 //        3. Add FilterBY, SortBY etc...
 
 export default function RestaurantCardLayout() {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [listOfTopRestaurants, setListOfTopRestaurants] = useState(null);
   const [filteredList, setFilteredList] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     const data = await fetch(
-      "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.4998403&lng=77.061843&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.4998403&lng=77.061843&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     if (!data.ok) {
       throw new Error("Failed to fetch data");
     }
     const json = await data.json();
-    console.log("json", json);
 
     setListOfTopRestaurants(
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
@@ -46,16 +44,20 @@ export default function RestaurantCardLayout() {
   }, []);
 
   let filterByFastDelivery = () => {
-    const filteredList = filteredList.filter(
+    const filterList = filteredList.filter(
       (res) => res?.info?.sla?.deliveryTime < 30
     );
-    setListOfRestaurants(filteredList);
+    setListOfRestaurants(filterList);
   };
   const originalData = () => {
     setListOfRestaurants(filteredList);
   };
   return (
     <Box sx={{ flexGrow: 1, height: "100%" }}>
+      <Header
+        filteredList={filteredList}
+        setListOfRestaurants={setListOfRestaurants}
+      />
       <Typography
         variant="h6"
         style={{ marginTop: "25px", marginBottom: "18px" }}
@@ -82,7 +84,6 @@ export default function RestaurantCardLayout() {
             ))}
         </Grid>
       )}
-
       <Divider
         style={{
           paddingTop: "25px",
@@ -91,33 +92,6 @@ export default function RestaurantCardLayout() {
           marginRight: "80px",
         }}
       />
-      <Box>
-        <TextField
-          id="standard-basic"
-          label="Standard"
-          variant="standard"
-          value={searchInput}
-          onChange={(e) => {
-            setSearchInput(e.target.value);
-          }}
-        />
-        <Button
-          variant="outlined"
-          onClick={() => {
-            const filterSearch = filteredList?.filter((res) =>
-              res?.info?.name.toLowerCase().includes(searchInput)
-            );
-            setListOfRestaurants(filterSearch);
-          }}
-          style={{
-            marginLeft: "10px",
-            fontSize: "12px",
-            fontWeight: "bold",
-          }}
-        >
-          Search
-        </Button>
-      </Box>
       <Typography variant="h6">All Restaurants</Typography>
       <Button
         variant="outlined"
