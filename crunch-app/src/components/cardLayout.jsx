@@ -7,11 +7,16 @@ import RestaurantCard from "./card";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { ShimmerEffect } from "./shimmer";
+import Header from "./header";
+
+// TODO : 1. Carousel in TOP Restaurants
+//        2. Make UI better - 4 cards in a row
+//        3. Add FilterBY, SortBY etc...
 
 export default function RestaurantCardLayout() {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [listOfTopRestaurants, setListOfTopRestaurants] = useState(null);
-  const [originalList, setOriginalList] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
@@ -22,7 +27,6 @@ export default function RestaurantCardLayout() {
       throw new Error("Failed to fetch data");
     }
     const json = await data.json();
-    console.log("json", json);
 
     setListOfTopRestaurants(
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
@@ -30,7 +34,7 @@ export default function RestaurantCardLayout() {
     const allRes =
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants || [];
-    setOriginalList(allRes);
+    setFilteredList(allRes);
     setListOfRestaurants(allRes);
     setLoading(false);
   };
@@ -40,16 +44,20 @@ export default function RestaurantCardLayout() {
   }, []);
 
   let filterByFastDelivery = () => {
-    const filteredList = originalList.filter(
+    const filterList = filteredList.filter(
       (res) => res?.info?.sla?.deliveryTime < 30
     );
-    setListOfRestaurants(filteredList);
+    setListOfRestaurants(filterList);
   };
   const originalData = () => {
-    setListOfRestaurants(originalList);
+    setListOfRestaurants(filteredList);
   };
   return (
     <Box sx={{ flexGrow: 1, height: "100%" }}>
+      <Header
+        filteredList={filteredList}
+        setListOfRestaurants={setListOfRestaurants}
+      />
       <Typography
         variant="h6"
         style={{ marginTop: "25px", marginBottom: "18px" }}
@@ -76,7 +84,6 @@ export default function RestaurantCardLayout() {
             ))}
         </Grid>
       )}
-
       <Divider
         style={{
           paddingTop: "25px",
@@ -110,7 +117,7 @@ export default function RestaurantCardLayout() {
           border: "1px solid rgb(226, 226, 231)",
         }}
         onClick={() => {
-          const filteredByRating = originalList.filter(
+          const filteredByRating = filteredList.filter(
             (res) => res?.info?.avgRating >= 4
           );
           setListOfRestaurants(filteredByRating);
@@ -134,12 +141,12 @@ export default function RestaurantCardLayout() {
       </Button>
       {loading ? (
         <Grid container spacing={1} justifyContent="center">
-        {[...Array(15)].map((_, index) => (
-          <Grid key={index} item xs={12} sm={6} md={4} lg={2.25}>
-            <ShimmerEffect />
-          </Grid>
-        ))}
-      </Grid>
+          {[...Array(15)].map((_, index) => (
+            <Grid key={index} item xs={12} sm={6} md={4} lg={2.25}>
+              <ShimmerEffect />
+            </Grid>
+          ))}
+        </Grid>
       ) : (
         <Grid container spacing={1} justifyContent="center">
           {listOfRestaurants?.map((res) => (

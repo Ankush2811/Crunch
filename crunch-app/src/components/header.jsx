@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,6 +9,10 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Icon } from "@iconify/react";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+import { useState } from "react";
+
+// TODO - 1.Move Search Functionality from layout to here
+//        2.Make all buttons Functional
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -47,28 +50,25 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: `calc(1em + ${theme.spacing(2)})`,
     transition: theme.transitions.create("width"),
     fontWeight: "bold",
     outline: "none",
     [theme.breakpoints.up("sm")]: {
-      width: "6ch",
+      width: "8ch",
       "&:focus": {
-        width: "15ch",
+        width: "16ch",
       },
     },
   },
   "& .MuiInputBase-input::placeholder": {
     fontWeight: "bold",
-    color: "#EE302A", // Placeholder text color
+    color: "#EE302A",
   },
 }));
 
-export default function Header() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
+export default function Header({ filteredList, setListOfRestaurants }) {
+  const [searchInput, setSearchInput] = useState("");
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "white" }}>
@@ -98,20 +98,43 @@ export default function Header() {
             >
               <Search>
                 <SearchIconWrapper>
-                  <Icon
+                  {/*TODO : Use this ,improve CSS here*/}
+                  {/* <Icon
                     icon="iconamoon:search-light"
                     width="1.5em"
                     height="1.5em"
                     style={{ color: "#EE302A", marginRight: "5px" }}
-                  />
+                  /> */}
                 </SearchIconWrapper>
                 <StyledInputBase
                   placeholder="SEARCH..."
                   inputProps={{ "aria-label": "search" }}
-                  // value={searchQuery}
-                  // onChange={handleSearchInputChange}
+                  value={searchInput}
+                  onChange={(e) => {
+                    setSearchInput(e.target.value);
+                  }}
                 />
               </Search>
+              <Button
+                style={{ marginRight: "-15px", marginLeft: "-20px" }}
+                onClick={() => {
+                  const filterSearch = filteredList?.filter((res) =>
+                    res?.info?.name.toLowerCase().includes(searchInput)
+                  );
+                  setListOfRestaurants(filterSearch);
+                }}
+                onBlur={() => {
+                  setSearchInput("");
+                  setListOfRestaurants(filteredList);
+                }}
+              >
+                <Icon
+                  icon="iconamoon:search-light"
+                  width="1.5em"
+                  height="1.5em"
+                  style={{ color: "#EE302A" }}
+                />
+              </Button>
             </Button>
             <Button
               style={{
