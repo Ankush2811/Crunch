@@ -9,7 +9,9 @@ import FiberManualRecordSharpIcon from "@mui/icons-material/FiberManualRecordSha
 
 export default function RestaurantCard(props) {
   const { resData } = props;
-  //   const restaurantName = resData?.restaurants?.[0]?.info;
+  // TODO : 1. Bottom Padding of card should be less
+  //        2. Ellipses in Cuisine names
+  
   return (
     <Card
       sx={{

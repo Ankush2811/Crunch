@@ -5,18 +5,33 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "typeface-poppins";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import OffersPage from "./components/offers";
+import NotFoundPage from "./components/error";
 
 const theme = createTheme({
   typography: {
     fontFamily: "Poppins, sans-serif",
   },
 });
+// TODO : Check if Outlet from react-router-dom can be used
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/offers",
+    element: <OffersPage />,
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <App />
+      <RouterProvider router={appRouter} />
     </ThemeProvider>
   </React.StrictMode>
 );
