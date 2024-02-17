@@ -9,17 +9,20 @@ import Typography from "@mui/material/Typography";
 import { ShimmerEffect } from "./shimmer";
 import { TextField } from "@mui/material";
 
+// TODO : 1. Carousel in TOP Restaurants
+//        2. Make UI better
+//        3. Add FilterBY, SortBY etc...
+
 export default function RestaurantCardLayout() {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [listOfTopRestaurants, setListOfTopRestaurants] = useState(null);
-  const [originalList, setOriginalList] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const [filterSearch, setFilterSearch] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.4998403&lng=77.061843&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.4998403&lng=77.061843&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     if (!data.ok) {
       throw new Error("Failed to fetch data");
@@ -33,9 +36,8 @@ export default function RestaurantCardLayout() {
     const allRes =
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants || [];
-    setOriginalList(allRes);
+    setFilteredList(allRes);
     setListOfRestaurants(allRes);
-    setFilterSearch(allRes);
     setLoading(false);
   };
 
@@ -44,13 +46,13 @@ export default function RestaurantCardLayout() {
   }, []);
 
   let filterByFastDelivery = () => {
-    const filteredList = originalList.filter(
+    const filteredList = filteredList.filter(
       (res) => res?.info?.sla?.deliveryTime < 30
     );
     setListOfRestaurants(filteredList);
   };
   const originalData = () => {
-    setListOfRestaurants(originalList);
+    setListOfRestaurants(filteredList);
   };
   return (
     <Box sx={{ flexGrow: 1, height: "100%" }}>
@@ -102,7 +104,7 @@ export default function RestaurantCardLayout() {
         <Button
           variant="outlined"
           onClick={() => {
-            const filterSearch = originalList?.filter((res) =>
+            const filterSearch = filteredList?.filter((res) =>
               res?.info?.name.toLowerCase().includes(searchInput)
             );
             setListOfRestaurants(filterSearch);
@@ -141,7 +143,7 @@ export default function RestaurantCardLayout() {
           border: "1px solid rgb(226, 226, 231)",
         }}
         onClick={() => {
-          const filteredByRating = originalList.filter(
+          const filteredByRating = filteredList.filter(
             (res) => res?.info?.avgRating >= 4
           );
           setListOfRestaurants(filteredByRating);

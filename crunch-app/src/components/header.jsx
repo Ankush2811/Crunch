@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,6 +9,9 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Icon } from "@iconify/react";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+
+// TODO - 1.Move Search Functionality from layout to here
+//        2.Make all buttons Functional
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
